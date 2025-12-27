@@ -1,7 +1,7 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        unordered_map<char,int>m;
+       vector<int>m(256,0);
         for(int i=0;i<t.size();i++){
             m[t[i]]++;
         }
