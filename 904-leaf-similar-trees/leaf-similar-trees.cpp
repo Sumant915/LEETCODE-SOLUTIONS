@@ -22,10 +22,6 @@ public:
         vector<int>arr2;
         leaves(root1,arr1);
         leaves(root2,arr2);
-        if(arr1.size()!=arr2.size()) return 0;
-        for(int i=0;i<arr1.size();i++){
-            if(arr1[i]!=arr2[i]) return 0;
-        }
-        return 1;
+        return arr1==arr2;
     }
 };
