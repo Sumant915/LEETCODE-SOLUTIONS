@@ -1,7 +1,7 @@
 class Solution {
 public:
     vector<int> distinctDifferenceArray(vector<int>& nums) {
-        set<int>s;
+        unordered_set<int>s;
         vector<int>prefix(nums.size());
         for(int i=0;i<nums.size();i++){
             s.insert(nums[i]);
