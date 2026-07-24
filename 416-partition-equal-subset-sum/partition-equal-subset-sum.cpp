@@ -7,19 +7,22 @@ public:
         }
         if(totalsum%2) return 0;
         int target=totalsum/2;
-        vector<vector<int>>dp(nums.size()+1,vector<int>(target+1,0));
-        dp[0][0]=1;
+        vector<int>prev(target+1,0);
+        
         for(int i=1;i<nums.size()+1;i++){
-            dp[i][0]=1;
-            for(int j=0;j<target+1;j++){
+           prev[0]=1;
+           vector<int>curr(target+1,0);
+           curr[0]=1;
+            for(int j=1;j<target+1;j++){
                 if(j-nums[i-1]>=0){
-                    dp[i][j]=dp[i-1][j]||dp[i-1][j-nums[i-1]];
+                    curr[j]=prev[j]||prev[j-nums[i-1]];
                 }
                 else{
-                    dp[i][j]=dp[i-1][j];
+                    curr[j]=prev[j];
                 }
             }
+            prev=curr;
         }
-        return dp[nums.size()][target];
+        return prev[target];
     }
 };
