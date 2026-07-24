@@ -1,12 +1,5 @@
 class Solution {
 public:
-    bool subset(int n,int sum,int target,vector<int>&nums, vector<vector<int>>&dp){
-        if(n==0) return sum==target;
-        if(sum==target) return 1;
-        if(sum>target) return 0;
-        if(dp[n][sum]!=-1) return dp[n][sum];
-        return dp[n][sum]=subset(n-1,sum+nums[n-1],target,nums,dp)||subset(n-1,sum,target,nums,dp);
-    }
     bool canPartition(vector<int>& nums) {
         int totalsum=0;
         for(int i:nums){
@@ -14,7 +7,19 @@ public:
         }
         if(totalsum%2) return 0;
         int target=totalsum/2;
-        vector<vector<int>>dp(nums.size()+1,vector<int>(target+1,-1));
-        return subset(nums.size(),0,target,nums,dp);
+        vector<vector<int>>dp(nums.size()+1,vector<int>(target+1,0));
+        dp[0][0]=1;
+        for(int i=1;i<nums.size()+1;i++){
+            dp[i][0]=1;
+            for(int j=0;j<target+1;j++){
+                if(j-nums[i-1]>=0){
+                    dp[i][j]=dp[i-1][j]||dp[i-1][j-nums[i-1]];
+                }
+                else{
+                    dp[i][j]=dp[i-1][j];
+                }
+            }
+        }
+        return dp[nums.size()][target];
     }
 };
